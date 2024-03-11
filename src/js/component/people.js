@@ -5,10 +5,6 @@ import "../../styles/people.css";
 export const People = () => {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.loadPeople();
-  }, []);
-
   const isFavorite = (person) => {
     return store.favorites && store.favorites.some((fav) => fav === person);
   };

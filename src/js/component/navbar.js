@@ -12,19 +12,23 @@ export const Navbar = () => {
         <span className="navbar-brand mb-0 h1">React Boilerplate</span>
       </Link>
       <div className="ml-auto">
-        <button onClick={() => setShowFavorites(!showFavorites)}>
+        <button
+          className="btn btn-secondary"
+          type="button"
+          onClick={() => setShowFavorites(!showFavorites)}
+        >
           Favorites ({store.favorites ? store.favorites.length : 0})
         </button>
         {showFavorites && (
-          <ul>
+          <div className="dropdown-menu show">
             {store.favorites &&
               store.favorites.length > 0 &&
               store.favorites.map((favorite, index) => (
-                <li key={index}>
+                <a className="dropdown-item" key={index}>
                   {favorite.properties ? favorite.properties.name : "No name"}
-                </li>
+                </a>
               ))}
-          </ul>
+          </div>
         )}
       </div>
     </nav>

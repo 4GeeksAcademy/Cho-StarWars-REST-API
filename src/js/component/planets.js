@@ -5,13 +5,13 @@ import "../../styles/planets.css";
 export const Planets = () => {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.loadPlanets();
-  }, []);
+  const isFavorite = (planet) => {
+    return store.favorites && store.favorites.some((fav) => fav === planet);
+  };
 
   return (
     <div>
-      <h1>Planetas</h1>
+      <h2>Planetas</h2>
       <div className="card-container">
         {store.planets &&
           store.planets.length > 0 &&
@@ -39,6 +39,16 @@ export const Planets = () => {
                   Terrain:{" "}
                   {planet.properties ? planet.properties.terrain : "N/A"}
                 </p>
+                <button
+                  onClick={() =>
+                    isFavorite(planet)
+                      ? actions.removeFavorite(planet)
+                      : actions.addFavorite(planet)
+                  }
+                  style={{ color: isFavorite(planet) ? "red" : "grey" }}
+                >
+                  {isFavorite(planet) ? "♥" : "♡"}
+                </button>
               </div>
             </div>
           ))}

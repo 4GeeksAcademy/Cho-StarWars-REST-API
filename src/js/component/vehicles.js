@@ -5,9 +5,9 @@ import "../../styles/vehicles.css";
 export const Vehicles = () => {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.loadVehicles();
-  }, []);
+  const isFavorite = (vehicle) => {
+    return store.favorites && store.favorites.some((fav) => fav === vehicle);
+  };
 
   return (
     <div>
@@ -40,6 +40,16 @@ export const Vehicles = () => {
                   Length:{" "}
                   {vehicle.properties ? vehicle.properties.length : "N/A"}
                 </p>
+                <button
+                  onClick={() =>
+                    isFavorite(vehicle)
+                      ? actions.removeFavorite(vehicle)
+                      : actions.addFavorite(vehicle)
+                  }
+                  style={{ color: isFavorite(vehicle) ? "red" : "grey" }}
+                >
+                  {isFavorite(vehicle) ? "♥" : "♡"}
+                </button>
               </div>
             </div>
           ))}
